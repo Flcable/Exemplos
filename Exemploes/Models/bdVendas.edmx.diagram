@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea382dfbe94b4e0eaff2b81726ea567b" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="VendasModel.tb_cat_categoria" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_cid_cidade" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_cli_cliente" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_for_fornecedor" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_fun_funcionario" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_ive_item_venda" Width="1.5" PointX="9.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_pai_pais" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_pro_produto" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_tra_transportadora" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VendasModel.tb_ven_venda" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="VendasModel.FK_tb_pro_produto_tb_cat_categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_cid_cidade_tb_pai_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_cli_cliente_tb_cid_cidade" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_for_fornecedor_tb_cid_cidade" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_fun_funcionario_tb_cid_cidade" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ven_venda_tb_cid_cidade" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_cli_cliente_tb_pai_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ven_venda_tb_cli_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_for_fornecedor_tb_pai_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_pro_produto_tb_for_fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_fun_funcionario_tb_pai_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ven_venda_tb_fun_funcionario" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ive_item_venda_tb_ven_venda" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ven_venda_tb_pai_pais" ManuallyRouted="false" />
+        <AssociationConnector Association="VendasModel.FK_tb_ven_venda_tb_tra_transportadora" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

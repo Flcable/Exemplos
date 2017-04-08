@@ -1,0 +1,961 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VendasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_cat_categoria">
+          <Key>
+            <PropertyRef Name="cat_codigo" />
+          </Key>
+          <Property Name="cat_codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_nome" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="cat_descricao" Type="ntext" />
+        </EntityType>
+        <EntityType Name="tb_cid_cidade">
+          <Key>
+            <PropertyRef Name="cid_codigo" />
+          </Key>
+          <Property Name="cid_codigo" Type="bigint" Nullable="false" />
+          <Property Name="cid_nome" Type="nvarchar" MaxLength="15" />
+          <Property Name="pai_codigo" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tb_cli_cliente">
+          <Key>
+            <PropertyRef Name="cli_codigo" />
+          </Key>
+          <Property Name="cli_codigo" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="cli_nome" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="cli_contato" Type="nvarchar" MaxLength="30" />
+          <Property Name="cli_cargo" Type="nvarchar" MaxLength="30" />
+          <Property Name="cli_endereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="cid_codigo" Type="bigint" />
+          <Property Name="cli_caixa_postal" Type="nvarchar" MaxLength="10" />
+          <Property Name="pai_codigo" Type="bigint" />
+          <Property Name="cli_telefone" Type="nvarchar" MaxLength="24" />
+          <Property Name="cli_fax" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="tb_for_fornecedor">
+          <Key>
+            <PropertyRef Name="frn_codigo" />
+          </Key>
+          <Property Name="frn_codigo" Type="int" Nullable="false" />
+          <Property Name="frn_nome" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="frn_contato" Type="nvarchar" MaxLength="30" />
+          <Property Name="frn_cargo" Type="nvarchar" MaxLength="30" />
+          <Property Name="frn_endereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="cid_codigo" Type="bigint" />
+          <Property Name="frn_codigo_postal" Type="nvarchar" MaxLength="10" />
+          <Property Name="pai_codigo" Type="bigint" />
+          <Property Name="frn_telefone" Type="nvarchar" MaxLength="24" />
+          <Property Name="frn_fax" Type="nvarchar" MaxLength="24" />
+          <Property Name="frn_site" Type="ntext" />
+        </EntityType>
+        <EntityType Name="tb_fun_funcionario">
+          <Key>
+            <PropertyRef Name="fun_codigo" />
+          </Key>
+          <Property Name="fun_codigo" Type="int" Nullable="false" />
+          <Property Name="fun_sobrenome" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="fun_nome" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="fun_cargo" Type="nvarchar" MaxLength="30" />
+          <Property Name="fun_titulo" Type="nvarchar" MaxLength="25" />
+          <Property Name="fun_nascimento" Type="datetime" />
+          <Property Name="fun_admissao" Type="datetime" />
+          <Property Name="fun_endereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="cid_codigo" Type="bigint" />
+          <Property Name="pai_codigo" Type="bigint" />
+          <Property Name="fun_telefone" Type="nvarchar" MaxLength="24" />
+          <Property Name="fun_ramal" Type="nvarchar" MaxLength="4" />
+          <Property Name="fun_observacao" Type="ntext" />
+          <Property Name="fun_login" Type="nvarchar" MaxLength="31" Nullable="false" />
+          <Property Name="fun_senha" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_ive_item_venda">
+          <Key>
+            <PropertyRef Name="ive_codigo" />
+          </Key>
+          <Property Name="ive_codigo" Type="bigint" Nullable="false" />
+          <Property Name="ven_codigo" Type="int" Nullable="false" />
+          <Property Name="pro_codigo" Type="int" Nullable="false" />
+          <Property Name="ive_valor_unitario" Type="money" Nullable="false" />
+          <Property Name="ive_quantidade" Type="smallint" Nullable="false" />
+          <Property Name="ive_desconto" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_pai_pais">
+          <Key>
+            <PropertyRef Name="pai_codigo" />
+          </Key>
+          <Property Name="pai_codigo" Type="bigint" Nullable="false" />
+          <Property Name="pai_nome" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="tb_pro_produto">
+          <Key>
+            <PropertyRef Name="pro_codigo" />
+          </Key>
+          <Property Name="pro_codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_nome" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="frn_codigo" Type="int" />
+          <Property Name="cat_codigo" Type="int" />
+          <Property Name="pro_embalagem" Type="nvarchar" MaxLength="20" />
+          <Property Name="pro_estoque" Type="smallint" />
+          <Property Name="pro_estoque_minimo" Type="smallint" />
+          <Property Name="pro_descontinuado" Type="bit" Nullable="false" />
+          <Property Name="pro_valor_unitario" Type="money" />
+        </EntityType>
+        <EntityType Name="tb_tra_transportadora">
+          <Key>
+            <PropertyRef Name="tra_codigo" />
+          </Key>
+          <Property Name="tra_codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tra_nome" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="tra_telefone" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="tb_ven_venda">
+          <Key>
+            <PropertyRef Name="ven_codigo" />
+          </Key>
+          <Property Name="ven_codigo" Type="int" Nullable="false" />
+          <Property Name="cli_codigo" Type="nchar" MaxLength="5" />
+          <Property Name="fun_codigo" Type="int" />
+          <Property Name="ven_data_pedido" Type="datetime" />
+          <Property Name="ven_prazo_entrega" Type="datetime" />
+          <Property Name="ven_data_envio" Type="datetime" />
+          <Property Name="tra_codigo" Type="int" />
+          <Property Name="frete" Type="money" />
+          <Property Name="ven_local_entrega" Type="nvarchar" MaxLength="40" />
+          <Property Name="ven_endereco" Type="nvarchar" MaxLength="60" />
+          <Property Name="cid_codigo" Type="bigint" />
+          <Property Name="ven_caixa_postal" Type="nvarchar" MaxLength="10" />
+          <Property Name="pai_codigo" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_tb_cid_cidade_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_cid_cidade">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_cli_cliente_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_cli_cliente">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_cli_cliente_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_cli_cliente">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_for_fornecedor_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_for_fornecedor">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_for_fornecedor_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_for_fornecedor">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_fun_funcionario_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_fun_funcionario">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_fun_funcionario_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_fun_funcionario">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ive_item_venda_tb_ven_venda">
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="1" />
+          <End Role="tb_ive_item_venda" Type="Self.tb_ive_item_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ven_venda">
+              <PropertyRef Name="ven_codigo" />
+            </Principal>
+            <Dependent Role="tb_ive_item_venda">
+              <PropertyRef Name="ven_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_pro_produto_tb_cat_categoria">
+          <End Role="tb_cat_categoria" Type="Self.tb_cat_categoria" Multiplicity="0..1" />
+          <End Role="tb_pro_produto" Type="Self.tb_pro_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cat_categoria">
+              <PropertyRef Name="cat_codigo" />
+            </Principal>
+            <Dependent Role="tb_pro_produto">
+              <PropertyRef Name="cat_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_pro_produto_tb_for_fornecedor">
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="0..1" />
+          <End Role="tb_pro_produto" Type="Self.tb_pro_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_for_fornecedor">
+              <PropertyRef Name="frn_codigo" />
+            </Principal>
+            <Dependent Role="tb_pro_produto">
+              <PropertyRef Name="frn_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_cli_cliente">
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cli_cliente">
+              <PropertyRef Name="cli_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="cli_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_fun_funcionario">
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_fun_funcionario">
+              <PropertyRef Name="fun_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="fun_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_tra_transportadora">
+          <End Role="tb_tra_transportadora" Type="Self.tb_tra_transportadora" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_tra_transportadora">
+              <PropertyRef Name="tra_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="tra_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VendasModelStoreContainer">
+          <EntitySet Name="tb_cat_categoria" EntityType="Self.tb_cat_categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_cid_cidade" EntityType="Self.tb_cid_cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_cli_cliente" EntityType="Self.tb_cli_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_for_fornecedor" EntityType="Self.tb_for_fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_fun_funcionario" EntityType="Self.tb_fun_funcionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ive_item_venda" EntityType="Self.tb_ive_item_venda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_pai_pais" EntityType="Self.tb_pai_pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_pro_produto" EntityType="Self.tb_pro_produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tra_transportadora" EntityType="Self.tb_tra_transportadora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ven_venda" EntityType="Self.tb_ven_venda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_cid_cidade_tb_pai_pais" Association="Self.FK_tb_cid_cidade_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_cli_cliente_tb_cid_cidade" Association="Self.FK_tb_cli_cliente_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_cli_cliente_tb_pai_pais" Association="Self.FK_tb_cli_cliente_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_for_fornecedor_tb_cid_cidade" Association="Self.FK_tb_for_fornecedor_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_for_fornecedor_tb_pai_pais" Association="Self.FK_tb_for_fornecedor_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_fun_funcionario_tb_cid_cidade" Association="Self.FK_tb_fun_funcionario_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_fun_funcionario_tb_pai_pais" Association="Self.FK_tb_fun_funcionario_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ive_item_venda_tb_ven_venda" Association="Self.FK_tb_ive_item_venda_tb_ven_venda">
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+            <End Role="tb_ive_item_venda" EntitySet="tb_ive_item_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_pro_produto_tb_cat_categoria" Association="Self.FK_tb_pro_produto_tb_cat_categoria">
+            <End Role="tb_cat_categoria" EntitySet="tb_cat_categoria" />
+            <End Role="tb_pro_produto" EntitySet="tb_pro_produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_pro_produto_tb_for_fornecedor" Association="Self.FK_tb_pro_produto_tb_for_fornecedor">
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+            <End Role="tb_pro_produto" EntitySet="tb_pro_produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_cid_cidade" Association="Self.FK_tb_ven_venda_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_cli_cliente" Association="Self.FK_tb_ven_venda_tb_cli_cliente">
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_fun_funcionario" Association="Self.FK_tb_ven_venda_tb_fun_funcionario">
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_pai_pais" Association="Self.FK_tb_ven_venda_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_tra_transportadora" Association="Self.FK_tb_ven_venda_tb_tra_transportadora">
+            <End Role="tb_tra_transportadora" EntitySet="tb_tra_transportadora" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VendasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_cat_categoria">
+          <Key>
+            <PropertyRef Name="cat_codigo" />
+          </Key>
+          <Property Name="cat_codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_nome" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cat_descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_pro_produto" Relationship="Self.FK_tb_pro_produto_tb_cat_categoria" FromRole="tb_cat_categoria" ToRole="tb_pro_produto" />
+        </EntityType>
+        <EntityType Name="tb_cid_cidade">
+          <Key>
+            <PropertyRef Name="cid_codigo" />
+          </Key>
+          <Property Name="cid_codigo" Type="Int64" Nullable="false" />
+          <Property Name="cid_nome" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="pai_codigo" Type="Int64" />
+          <NavigationProperty Name="tb_pai_pais" Relationship="Self.FK_tb_cid_cidade_tb_pai_pais" FromRole="tb_cid_cidade" ToRole="tb_pai_pais" />
+          <NavigationProperty Name="tb_cli_cliente" Relationship="Self.FK_tb_cli_cliente_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_cli_cliente" />
+          <NavigationProperty Name="tb_for_fornecedor" Relationship="Self.FK_tb_for_fornecedor_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_for_fornecedor" />
+          <NavigationProperty Name="tb_fun_funcionario" Relationship="Self.FK_tb_fun_funcionario_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_fun_funcionario" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ven_venda_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_cli_cliente">
+          <Key>
+            <PropertyRef Name="cli_codigo" />
+          </Key>
+          <Property Name="cli_codigo" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="cli_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cli_contato" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cli_cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="cli_endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="cid_codigo" Type="Int64" />
+          <Property Name="cli_caixa_postal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="pai_codigo" Type="Int64" />
+          <Property Name="cli_telefone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="cli_fax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="Self.FK_tb_cli_cliente_tb_cid_cidade" FromRole="tb_cli_cliente" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_pai_pais" Relationship="Self.FK_tb_cli_cliente_tb_pai_pais" FromRole="tb_cli_cliente" ToRole="tb_pai_pais" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ven_venda_tb_cli_cliente" FromRole="tb_cli_cliente" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_for_fornecedor">
+          <Key>
+            <PropertyRef Name="frn_codigo" />
+          </Key>
+          <Property Name="frn_codigo" Type="Int32" Nullable="false" />
+          <Property Name="frn_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="frn_contato" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="frn_cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="frn_endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="cid_codigo" Type="Int64" />
+          <Property Name="frn_codigo_postal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="pai_codigo" Type="Int64" />
+          <Property Name="frn_telefone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="frn_fax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="frn_site" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="Self.FK_tb_for_fornecedor_tb_cid_cidade" FromRole="tb_for_fornecedor" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_pai_pais" Relationship="Self.FK_tb_for_fornecedor_tb_pai_pais" FromRole="tb_for_fornecedor" ToRole="tb_pai_pais" />
+          <NavigationProperty Name="tb_pro_produto" Relationship="Self.FK_tb_pro_produto_tb_for_fornecedor" FromRole="tb_for_fornecedor" ToRole="tb_pro_produto" />
+        </EntityType>
+        <EntityType Name="tb_fun_funcionario">
+          <Key>
+            <PropertyRef Name="fun_codigo" />
+          </Key>
+          <Property Name="fun_codigo" Type="Int32" Nullable="false" />
+          <Property Name="fun_sobrenome" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fun_nome" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fun_cargo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="fun_titulo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="fun_nascimento" Type="DateTime" Precision="3" />
+          <Property Name="fun_admissao" Type="DateTime" Precision="3" />
+          <Property Name="fun_endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="cid_codigo" Type="Int64" />
+          <Property Name="pai_codigo" Type="Int64" />
+          <Property Name="fun_telefone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="fun_ramal" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="fun_observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fun_login" Type="String" MaxLength="31" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fun_senha" Type="Int32" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="Self.FK_tb_fun_funcionario_tb_cid_cidade" FromRole="tb_fun_funcionario" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_pai_pais" Relationship="Self.FK_tb_fun_funcionario_tb_pai_pais" FromRole="tb_fun_funcionario" ToRole="tb_pai_pais" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ven_venda_tb_fun_funcionario" FromRole="tb_fun_funcionario" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_ive_item_venda">
+          <Key>
+            <PropertyRef Name="ive_codigo" />
+          </Key>
+          <Property Name="ive_codigo" Type="Int64" Nullable="false" />
+          <Property Name="ven_codigo" Type="Int32" Nullable="false" />
+          <Property Name="pro_codigo" Type="Int32" Nullable="false" />
+          <Property Name="ive_valor_unitario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ive_quantidade" Type="Int16" Nullable="false" />
+          <Property Name="ive_desconto" Type="Single" Nullable="false" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ive_item_venda_tb_ven_venda" FromRole="tb_ive_item_venda" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_pai_pais">
+          <Key>
+            <PropertyRef Name="pai_codigo" />
+          </Key>
+          <Property Name="pai_codigo" Type="Int64" Nullable="false" />
+          <Property Name="pai_nome" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="Self.FK_tb_cid_cidade_tb_pai_pais" FromRole="tb_pai_pais" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_cli_cliente" Relationship="Self.FK_tb_cli_cliente_tb_pai_pais" FromRole="tb_pai_pais" ToRole="tb_cli_cliente" />
+          <NavigationProperty Name="tb_for_fornecedor" Relationship="Self.FK_tb_for_fornecedor_tb_pai_pais" FromRole="tb_pai_pais" ToRole="tb_for_fornecedor" />
+          <NavigationProperty Name="tb_fun_funcionario" Relationship="Self.FK_tb_fun_funcionario_tb_pai_pais" FromRole="tb_pai_pais" ToRole="tb_fun_funcionario" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ven_venda_tb_pai_pais" FromRole="tb_pai_pais" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_pro_produto">
+          <Key>
+            <PropertyRef Name="pro_codigo" />
+          </Key>
+          <Property Name="pro_codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="frn_codigo" Type="Int32" />
+          <Property Name="cat_codigo" Type="Int32" />
+          <Property Name="pro_embalagem" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="pro_estoque" Type="Int16" />
+          <Property Name="pro_estoque_minimo" Type="Int16" />
+          <Property Name="pro_descontinuado" Type="Boolean" Nullable="false" />
+          <Property Name="pro_valor_unitario" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tb_cat_categoria" Relationship="Self.FK_tb_pro_produto_tb_cat_categoria" FromRole="tb_pro_produto" ToRole="tb_cat_categoria" />
+          <NavigationProperty Name="tb_for_fornecedor" Relationship="Self.FK_tb_pro_produto_tb_for_fornecedor" FromRole="tb_pro_produto" ToRole="tb_for_fornecedor" />
+        </EntityType>
+        <EntityType Name="tb_tra_transportadora">
+          <Key>
+            <PropertyRef Name="tra_codigo" />
+          </Key>
+          <Property Name="tra_codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tra_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tra_telefone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_ven_venda" Relationship="Self.FK_tb_ven_venda_tb_tra_transportadora" FromRole="tb_tra_transportadora" ToRole="tb_ven_venda" />
+        </EntityType>
+        <EntityType Name="tb_ven_venda">
+          <Key>
+            <PropertyRef Name="ven_codigo" />
+          </Key>
+          <Property Name="ven_codigo" Type="Int32" Nullable="false" />
+          <Property Name="cli_codigo" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="fun_codigo" Type="Int32" />
+          <Property Name="ven_data_pedido" Type="DateTime" Precision="3" />
+          <Property Name="ven_prazo_entrega" Type="DateTime" Precision="3" />
+          <Property Name="ven_data_envio" Type="DateTime" Precision="3" />
+          <Property Name="tra_codigo" Type="Int32" />
+          <Property Name="frete" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ven_local_entrega" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ven_endereco" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="cid_codigo" Type="Int64" />
+          <Property Name="ven_caixa_postal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="pai_codigo" Type="Int64" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="Self.FK_tb_ven_venda_tb_cid_cidade" FromRole="tb_ven_venda" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_cli_cliente" Relationship="Self.FK_tb_ven_venda_tb_cli_cliente" FromRole="tb_ven_venda" ToRole="tb_cli_cliente" />
+          <NavigationProperty Name="tb_fun_funcionario" Relationship="Self.FK_tb_ven_venda_tb_fun_funcionario" FromRole="tb_ven_venda" ToRole="tb_fun_funcionario" />
+          <NavigationProperty Name="tb_ive_item_venda" Relationship="Self.FK_tb_ive_item_venda_tb_ven_venda" FromRole="tb_ven_venda" ToRole="tb_ive_item_venda" />
+          <NavigationProperty Name="tb_pai_pais" Relationship="Self.FK_tb_ven_venda_tb_pai_pais" FromRole="tb_ven_venda" ToRole="tb_pai_pais" />
+          <NavigationProperty Name="tb_tra_transportadora" Relationship="Self.FK_tb_ven_venda_tb_tra_transportadora" FromRole="tb_ven_venda" ToRole="tb_tra_transportadora" />
+        </EntityType>
+        <Association Name="FK_tb_pro_produto_tb_cat_categoria">
+          <End Role="tb_cat_categoria" Type="Self.tb_cat_categoria" Multiplicity="0..1" />
+          <End Role="tb_pro_produto" Type="Self.tb_pro_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cat_categoria">
+              <PropertyRef Name="cat_codigo" />
+            </Principal>
+            <Dependent Role="tb_pro_produto">
+              <PropertyRef Name="cat_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_cid_cidade_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_cid_cidade">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_cli_cliente_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_cli_cliente">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_for_fornecedor_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_for_fornecedor">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_fun_funcionario_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_fun_funcionario">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_cid_cidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="cid_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_cli_cliente_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_cli_cliente">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_cli_cliente">
+          <End Role="tb_cli_cliente" Type="Self.tb_cli_cliente" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cli_cliente">
+              <PropertyRef Name="cli_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="cli_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_for_fornecedor_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_for_fornecedor">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_pro_produto_tb_for_fornecedor">
+          <End Role="tb_for_fornecedor" Type="Self.tb_for_fornecedor" Multiplicity="0..1" />
+          <End Role="tb_pro_produto" Type="Self.tb_pro_produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_for_fornecedor">
+              <PropertyRef Name="frn_codigo" />
+            </Principal>
+            <Dependent Role="tb_pro_produto">
+              <PropertyRef Name="frn_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_fun_funcionario_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_fun_funcionario">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_fun_funcionario">
+          <End Role="tb_fun_funcionario" Type="Self.tb_fun_funcionario" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_fun_funcionario">
+              <PropertyRef Name="fun_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="fun_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ive_item_venda_tb_ven_venda">
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="1" />
+          <End Role="tb_ive_item_venda" Type="Self.tb_ive_item_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ven_venda">
+              <PropertyRef Name="ven_codigo" />
+            </Principal>
+            <Dependent Role="tb_ive_item_venda">
+              <PropertyRef Name="ven_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_pai_pais">
+          <End Role="tb_pai_pais" Type="Self.tb_pai_pais" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_pai_pais">
+              <PropertyRef Name="pai_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="pai_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ven_venda_tb_tra_transportadora">
+          <End Role="tb_tra_transportadora" Type="Self.tb_tra_transportadora" Multiplicity="0..1" />
+          <End Role="tb_ven_venda" Type="Self.tb_ven_venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_tra_transportadora">
+              <PropertyRef Name="tra_codigo" />
+            </Principal>
+            <Dependent Role="tb_ven_venda">
+              <PropertyRef Name="tra_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VendasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_cat_categoria" EntityType="Self.tb_cat_categoria" />
+          <EntitySet Name="tb_cid_cidade" EntityType="Self.tb_cid_cidade" />
+          <EntitySet Name="tb_cli_cliente" EntityType="Self.tb_cli_cliente" />
+          <EntitySet Name="tb_for_fornecedor" EntityType="Self.tb_for_fornecedor" />
+          <EntitySet Name="tb_fun_funcionario" EntityType="Self.tb_fun_funcionario" />
+          <EntitySet Name="tb_ive_item_venda" EntityType="Self.tb_ive_item_venda" />
+          <EntitySet Name="tb_pai_pais" EntityType="Self.tb_pai_pais" />
+          <EntitySet Name="tb_pro_produto" EntityType="Self.tb_pro_produto" />
+          <EntitySet Name="tb_tra_transportadora" EntityType="Self.tb_tra_transportadora" />
+          <EntitySet Name="tb_ven_venda" EntityType="Self.tb_ven_venda" />
+          <AssociationSet Name="FK_tb_pro_produto_tb_cat_categoria" Association="Self.FK_tb_pro_produto_tb_cat_categoria">
+            <End Role="tb_cat_categoria" EntitySet="tb_cat_categoria" />
+            <End Role="tb_pro_produto" EntitySet="tb_pro_produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_cid_cidade_tb_pai_pais" Association="Self.FK_tb_cid_cidade_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_cli_cliente_tb_cid_cidade" Association="Self.FK_tb_cli_cliente_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_for_fornecedor_tb_cid_cidade" Association="Self.FK_tb_for_fornecedor_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_fun_funcionario_tb_cid_cidade" Association="Self.FK_tb_fun_funcionario_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_cid_cidade" Association="Self.FK_tb_ven_venda_tb_cid_cidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_cli_cliente_tb_pai_pais" Association="Self.FK_tb_cli_cliente_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_cli_cliente" Association="Self.FK_tb_ven_venda_tb_cli_cliente">
+            <End Role="tb_cli_cliente" EntitySet="tb_cli_cliente" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_for_fornecedor_tb_pai_pais" Association="Self.FK_tb_for_fornecedor_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_pro_produto_tb_for_fornecedor" Association="Self.FK_tb_pro_produto_tb_for_fornecedor">
+            <End Role="tb_for_fornecedor" EntitySet="tb_for_fornecedor" />
+            <End Role="tb_pro_produto" EntitySet="tb_pro_produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_fun_funcionario_tb_pai_pais" Association="Self.FK_tb_fun_funcionario_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_fun_funcionario" Association="Self.FK_tb_ven_venda_tb_fun_funcionario">
+            <End Role="tb_fun_funcionario" EntitySet="tb_fun_funcionario" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ive_item_venda_tb_ven_venda" Association="Self.FK_tb_ive_item_venda_tb_ven_venda">
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+            <End Role="tb_ive_item_venda" EntitySet="tb_ive_item_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_pai_pais" Association="Self.FK_tb_ven_venda_tb_pai_pais">
+            <End Role="tb_pai_pais" EntitySet="tb_pai_pais" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ven_venda_tb_tra_transportadora" Association="Self.FK_tb_ven_venda_tb_tra_transportadora">
+            <End Role="tb_tra_transportadora" EntitySet="tb_tra_transportadora" />
+            <End Role="tb_ven_venda" EntitySet="tb_ven_venda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VendasModelStoreContainer" CdmEntityContainer="VendasEntities">
+          <EntitySetMapping Name="tb_cat_categoria">
+            <EntityTypeMapping TypeName="VendasModel.tb_cat_categoria">
+              <MappingFragment StoreEntitySet="tb_cat_categoria">
+                <ScalarProperty Name="cat_codigo" ColumnName="cat_codigo" />
+                <ScalarProperty Name="cat_nome" ColumnName="cat_nome" />
+                <ScalarProperty Name="cat_descricao" ColumnName="cat_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_cid_cidade">
+            <EntityTypeMapping TypeName="VendasModel.tb_cid_cidade">
+              <MappingFragment StoreEntitySet="tb_cid_cidade">
+                <ScalarProperty Name="cid_codigo" ColumnName="cid_codigo" />
+                <ScalarProperty Name="cid_nome" ColumnName="cid_nome" />
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_cli_cliente">
+            <EntityTypeMapping TypeName="VendasModel.tb_cli_cliente">
+              <MappingFragment StoreEntitySet="tb_cli_cliente">
+                <ScalarProperty Name="cli_codigo" ColumnName="cli_codigo" />
+                <ScalarProperty Name="cli_nome" ColumnName="cli_nome" />
+                <ScalarProperty Name="cli_contato" ColumnName="cli_contato" />
+                <ScalarProperty Name="cli_cargo" ColumnName="cli_cargo" />
+                <ScalarProperty Name="cli_endereco" ColumnName="cli_endereco" />
+                <ScalarProperty Name="cid_codigo" ColumnName="cid_codigo" />
+                <ScalarProperty Name="cli_caixa_postal" ColumnName="cli_caixa_postal" />
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+                <ScalarProperty Name="cli_telefone" ColumnName="cli_telefone" />
+                <ScalarProperty Name="cli_fax" ColumnName="cli_fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_for_fornecedor">
+            <EntityTypeMapping TypeName="VendasModel.tb_for_fornecedor">
+              <MappingFragment StoreEntitySet="tb_for_fornecedor">
+                <ScalarProperty Name="frn_codigo" ColumnName="frn_codigo" />
+                <ScalarProperty Name="frn_nome" ColumnName="frn_nome" />
+                <ScalarProperty Name="frn_contato" ColumnName="frn_contato" />
+                <ScalarProperty Name="frn_cargo" ColumnName="frn_cargo" />
+                <ScalarProperty Name="frn_endereco" ColumnName="frn_endereco" />
+                <ScalarProperty Name="cid_codigo" ColumnName="cid_codigo" />
+                <ScalarProperty Name="frn_codigo_postal" ColumnName="frn_codigo_postal" />
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+                <ScalarProperty Name="frn_telefone" ColumnName="frn_telefone" />
+                <ScalarProperty Name="frn_fax" ColumnName="frn_fax" />
+                <ScalarProperty Name="frn_site" ColumnName="frn_site" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_fun_funcionario">
+            <EntityTypeMapping TypeName="VendasModel.tb_fun_funcionario">
+              <MappingFragment StoreEntitySet="tb_fun_funcionario">
+                <ScalarProperty Name="fun_codigo" ColumnName="fun_codigo" />
+                <ScalarProperty Name="fun_sobrenome" ColumnName="fun_sobrenome" />
+                <ScalarProperty Name="fun_nome" ColumnName="fun_nome" />
+                <ScalarProperty Name="fun_cargo" ColumnName="fun_cargo" />
+                <ScalarProperty Name="fun_titulo" ColumnName="fun_titulo" />
+                <ScalarProperty Name="fun_nascimento" ColumnName="fun_nascimento" />
+                <ScalarProperty Name="fun_admissao" ColumnName="fun_admissao" />
+                <ScalarProperty Name="fun_endereco" ColumnName="fun_endereco" />
+                <ScalarProperty Name="cid_codigo" ColumnName="cid_codigo" />
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+                <ScalarProperty Name="fun_telefone" ColumnName="fun_telefone" />
+                <ScalarProperty Name="fun_ramal" ColumnName="fun_ramal" />
+                <ScalarProperty Name="fun_observacao" ColumnName="fun_observacao" />
+                <ScalarProperty Name="fun_login" ColumnName="fun_login" />
+                <ScalarProperty Name="fun_senha" ColumnName="fun_senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ive_item_venda">
+            <EntityTypeMapping TypeName="VendasModel.tb_ive_item_venda">
+              <MappingFragment StoreEntitySet="tb_ive_item_venda">
+                <ScalarProperty Name="ive_codigo" ColumnName="ive_codigo" />
+                <ScalarProperty Name="ven_codigo" ColumnName="ven_codigo" />
+                <ScalarProperty Name="pro_codigo" ColumnName="pro_codigo" />
+                <ScalarProperty Name="ive_valor_unitario" ColumnName="ive_valor_unitario" />
+                <ScalarProperty Name="ive_quantidade" ColumnName="ive_quantidade" />
+                <ScalarProperty Name="ive_desconto" ColumnName="ive_desconto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_pai_pais">
+            <EntityTypeMapping TypeName="VendasModel.tb_pai_pais">
+              <MappingFragment StoreEntitySet="tb_pai_pais">
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+                <ScalarProperty Name="pai_nome" ColumnName="pai_nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_pro_produto">
+            <EntityTypeMapping TypeName="VendasModel.tb_pro_produto">
+              <MappingFragment StoreEntitySet="tb_pro_produto">
+                <ScalarProperty Name="pro_codigo" ColumnName="pro_codigo" />
+                <ScalarProperty Name="pro_nome" ColumnName="pro_nome" />
+                <ScalarProperty Name="frn_codigo" ColumnName="frn_codigo" />
+                <ScalarProperty Name="cat_codigo" ColumnName="cat_codigo" />
+                <ScalarProperty Name="pro_embalagem" ColumnName="pro_embalagem" />
+                <ScalarProperty Name="pro_estoque" ColumnName="pro_estoque" />
+                <ScalarProperty Name="pro_estoque_minimo" ColumnName="pro_estoque_minimo" />
+                <ScalarProperty Name="pro_descontinuado" ColumnName="pro_descontinuado" />
+                <ScalarProperty Name="pro_valor_unitario" ColumnName="pro_valor_unitario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tra_transportadora">
+            <EntityTypeMapping TypeName="VendasModel.tb_tra_transportadora">
+              <MappingFragment StoreEntitySet="tb_tra_transportadora">
+                <ScalarProperty Name="tra_codigo" ColumnName="tra_codigo" />
+                <ScalarProperty Name="tra_nome" ColumnName="tra_nome" />
+                <ScalarProperty Name="tra_telefone" ColumnName="tra_telefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ven_venda">
+            <EntityTypeMapping TypeName="VendasModel.tb_ven_venda">
+              <MappingFragment StoreEntitySet="tb_ven_venda">
+                <ScalarProperty Name="ven_codigo" ColumnName="ven_codigo" />
+                <ScalarProperty Name="cli_codigo" ColumnName="cli_codigo" />
+                <ScalarProperty Name="fun_codigo" ColumnName="fun_codigo" />
+                <ScalarProperty Name="ven_data_pedido" ColumnName="ven_data_pedido" />
+                <ScalarProperty Name="ven_prazo_entrega" ColumnName="ven_prazo_entrega" />
+                <ScalarProperty Name="ven_data_envio" ColumnName="ven_data_envio" />
+                <ScalarProperty Name="tra_codigo" ColumnName="tra_codigo" />
+                <ScalarProperty Name="frete" ColumnName="frete" />
+                <ScalarProperty Name="ven_local_entrega" ColumnName="ven_local_entrega" />
+                <ScalarProperty Name="ven_endereco" ColumnName="ven_endereco" />
+                <ScalarProperty Name="cid_codigo" ColumnName="cid_codigo" />
+                <ScalarProperty Name="ven_caixa_postal" ColumnName="ven_caixa_postal" />
+                <ScalarProperty Name="pai_codigo" ColumnName="pai_codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
