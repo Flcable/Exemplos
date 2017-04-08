@@ -7,6 +7,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <p>
         @Html.TextBox("usuario", ViewBag.usuario as string, new { @class = "form-control"})
     </p>
@@ -16,7 +17,7 @@
     </p>
 
     <p>
-        <input id="entrar" name="entrar" type="submit" value="entrar" class="success"/>
-        <input id="sair" name="sair" type="submit" value="sair" class="alert-danger"/>
+        <input id="entrar" name="entrar" type="submit" value="entrar" class="btn-success"/>
+        <input id="sair" name="sair" type="submit" value="sair" class="btn-danger"/>
     </p>
 }

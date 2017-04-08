@@ -28,6 +28,11 @@ namespace Exemploes.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection f, string returnUrl) //Implementando
         {
+            if (f["sair"] == "sair")
+            {
+                System.Web.Security.FormsAuthentication.SignOut();
+                return Redirect("/Home/Index");
+            }
             string usuario = f["usuario"].ToString();
             if (usuario == "administrador")
             {
