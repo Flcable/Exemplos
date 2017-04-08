@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Exemploes.Models;
+using Exemplos.Models;
 
 
-namespace Exemploes.Controllers
+namespace Exemplos.Controllers
 {
     public class LoginController : Controller
     {
@@ -25,6 +25,7 @@ namespace Exemploes.Controllers
             return View();
         }
 
+        
         [HttpPost]
         public ActionResult Login(FormCollection f, string returnUrl) //Implementando
         {
@@ -34,21 +35,42 @@ namespace Exemploes.Controllers
                 return Redirect("/Home/Index");
             }
             string usuario = f["usuario"].ToString();
-            if (usuario == "administrador")
+            string senha = f["senha"].ToString();
+            var funcionario = from p in db.tb_fun_funcionario //inicia validação do login 
+                              where p.fun_login == usuario
+                              select p;
+            //if (funcionario.Any())
+            if (funcionario.FirstOrDefault() != null)
             {
-                System.Web.Security.FormsAuthentication.SetAuthCookie(usuario, false);
-                if (returnUrl == null)
-                { return Redirect("/Home/Index"); }
+                if (funcionario.FirstOrDefault().fun_senha.ToString() == senha)
+                {
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(usuario, false);
+                    if (returnUrl == null)
+                    { return Redirect("/Home/Index"); }
+                    else
+                    { return Redirect(returnUrl); }
+
+                }
                 else
-                { return Redirect(returnUrl); }
+                {
+                    ViewBag.mensagem = "Senha Incorreta";
+                }
+              
             }
             else
             {
+                ViewBag.mensagem = "Usuario Inexistente";
                 System.Web.Security.FormsAuthentication.SignOut();
             }
            
             ViewBag.usuario = usuario;
             return View();
+        }
+
+        public ActionResult Sair()
+        {
+            System.Web.Security.FormsAuthentication.SignOut();
+            return Redirect("/Home/Index");
         }
     }
 }
